@@ -1,6 +1,7 @@
 package models;
 
 import com.avaje.ebean.Model;
+import com.avaje.ebean.annotation.Sql;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import services.JsonDateSerializer;
@@ -29,8 +30,8 @@ public class Bill extends Model {
     @Column (name = "taxes")
     public Double taxes;
 
-    @Column (name = "status")
-    public boolean status;
+    @Column (name = "paid")
+    public boolean paid;
 
     @Column (name = "payment_date")
     @JsonSerialize(using = JsonDateSerializer.class)
@@ -43,10 +44,6 @@ public class Bill extends Model {
     @Column(name = "updated_at")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     public Date updatedAt;
-
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="customer_id", referencedColumnName="id")
-    public Customer customer;
 
 
     public static final Model.Finder<Long, Bill> find = new Model.Finder<>(

@@ -43,8 +43,6 @@ public class Customer extends Model implements Serializable {
     @JoinColumn(name="identity_id", referencedColumnName="id", unique=true)
     public Identity identity;
 
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="customer")
-    public List<Bill> bills;
 
     public static final Finder<Long, Customer> find = new Finder<>(
             Long.class, Customer.class);

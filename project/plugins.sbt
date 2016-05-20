@@ -20,3 +20,4 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-play-enhancer" % "1.1.0")
 // enablePlugins(PlayEbean).
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-play-ebean" % "3.0.0")
+

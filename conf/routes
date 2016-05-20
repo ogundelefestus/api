@@ -1,0 +1,14 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+POST    /api/signup                 controllers.AuthController.signup
+POST    /api/login                  controllers.AuthController.login
+
+GET     /api/logout                 controllers.AuthController.logout
+GET     /api/isauthenticated        controllers.AuthController.isAuthenticated
+
+GET     /api/customers/:start/:end  controllers.CustomersController.all(start: Long, end: Long)
+GET     /api/customers/:id          controllers.CustomersController.show(id: Long)
+
+GET     /api/bills/:id              controllers.BillsController.show(id: Long)

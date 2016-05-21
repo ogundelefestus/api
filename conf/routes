@@ -8,11 +8,11 @@ POST    /api/login                  controllers.AuthController.login
 GET     /api/logout                 controllers.AuthController.logout
 GET     /api/isauthenticated        controllers.AuthController.isAuthenticated
 
-
+GET     /api/customers/:cid/months/:id   controllers.CustomersController.months(cid: Long, id: Int)
 GET     /api/customers/:id/payments controllers.CustomersController.payments(id: Long)
 GET     /api/customers/:id/debts    controllers.CustomersController.debts(id: Long)
 GET     /api/customers/:id          controllers.CustomersController.show(id: Long)
-GET     /api/customers/:start/:end  controllers.CustomersController.all(start: Long, end: Long)
 
+GET     /api/bills/all              controllers.BillsController.all
 GET     /api/bills/:id              controllers.BillsController.show(id: Long)
 POST    /api/bills/:id/update       controllers.BillsController.update(id: Long)

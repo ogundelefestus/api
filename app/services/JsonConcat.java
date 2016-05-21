@@ -37,7 +37,6 @@ public class JsonConcat {
 
         String result = gson.toJson(customerJson);
         return result;
-
     }
 
     public static String concat (Customer customer, Identity identity, List<Bill> bills) {
@@ -123,7 +122,5 @@ public class JsonConcat {
         billJson.add("customer", customerJson);
         String result = gson.toJson(billJson);
         return result;
-
     }
-
 }

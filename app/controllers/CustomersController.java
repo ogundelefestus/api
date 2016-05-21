@@ -4,12 +4,19 @@ import models.*;
 import play.libs.Json;
 import play.mvc.Result;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static services.JsonConcat.concat;
 
 
 public class CustomersController extends BaseController {
+
+    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    Calendar c = Calendar.getInstance();
 
     public Result show(long id) {
 
@@ -24,12 +31,42 @@ public class CustomersController extends BaseController {
         return ok(concat(customer,identity));
     }
 
-    public Result all(Long start, Long end) {
+    public Result months(Long cid, int i) {
+
+        List<Bill> getLastBill = Bill
+                .find
+                .where()
+                .eq("customer_id",cid)
+                .orderBy("id desc")
+                .findList();
+
+        Date dateToday = getLastBill.get(0).billed_date;
+        Date pastDate = null;
+        c.setTime(dateToday);
+        if (i == 1) {
+            c.add(Calendar.MONTH, -0);
+        }
+        else if (i == 3) {
+            c.add(Calendar.MONTH, -2);
+        }
+        else if (i == 6) {
+            c.add(Calendar.MONTH, -5);
+        }
+        else if (i == 12) {
+            c.add(Calendar.MONTH, -11);
+        }
+        else {
+            return ok(buildJsonResponse("fail", "Invalid month definition"));
+        }
+        pastDate = c.getTime();
+        String today = dateFormat.format(dateToday);
+        String past = dateFormat.format(pastDate);
 
         List<Bill> bill = Bill
-                .findDate
+                .find
                 .where()
-                .between("billed_date", start, end)
+                .eq("customer_id", cid)
+                .between("billed_date", past, today)
                 .findList();
 
         return ok(Json.toJson(bill));

@@ -3,7 +3,10 @@ package controllers;
 import models.Bill;
 import models.Customer;
 import models.Identity;
+import play.libs.Json;
 import play.mvc.Result;
+
+import java.util.List;
 
 import static services.JsonConcat.concat;
 
@@ -24,6 +27,20 @@ public class BillsController extends BaseController {
         bill.payment_date = new java.sql.Date (new java.util.Date().getTime());
         bill.save();
         return ok(buildJsonResponse("update", "Users updated successfully"));
+    }
+
+    public Result all() {
+
+        String start = request().getQueryString("start");
+        String end = request().getQueryString("end");
+
+        List<Bill> bill = Bill
+                .find
+                .where()
+                .between("billed_date", end, start)
+                .findList();
+
+        return ok(Json.toJson(bill));
     }
 }
 

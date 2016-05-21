@@ -15,3 +15,4 @@ GET     /api/customers/:id          controllers.CustomersController.show(id: Lon
 GET     /api/customers/:start/:end  controllers.CustomersController.all(start: Long, end: Long)
 
 GET     /api/bills/:id              controllers.BillsController.show(id: Long)
+POST    /api/bills/:id/update       controllers.BillsController.update(id: Long)

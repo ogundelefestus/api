@@ -18,8 +18,8 @@ public class AuthController extends BaseController {
         }
 
         User newUser = userForm.bindFromRequest().get();
-        newUser.createdAt =  new java.sql.Timestamp ( new java.util.Date().getTime());
-        newUser.updatedAt = new java.sql.Timestamp ( new java.util.Date().getTime());;
+        newUser.created_at =  new java.sql.Timestamp ( new java.util.Date().getTime());
+        newUser.updated_at = new java.sql.Timestamp ( new java.util.Date().getTime());
         newUser.save();
         session("email", newUser.email);
 

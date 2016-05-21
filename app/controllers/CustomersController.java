@@ -6,8 +6,10 @@ import play.mvc.Result;
 
 import java.util.List;
 
-public class CustomersController extends BaseController {
+import static services.JsonConcat.concat;
 
+
+public class CustomersController extends BaseController {
 
     public Result show(long id) {
 
@@ -16,40 +18,46 @@ public class CustomersController extends BaseController {
         if (result != null) {
             return ok(result);
         }*/
-        Customer customer = Customer
-                .find
-                .fetch("identity")
-                .where()
-                .eq("id", id)
-                .findUnique();
-        return ok(Json.toJson(customer));
+        Customer customer = Customer.find.byId(id);
+        Identity identity = Identity.find.byId(id);
 
+        return ok(concat(customer,identity));
     }
 
     public Result all(Long start, Long end) {
 
-        List<Customer> customer = Customer
-                .find
-                .fetch("identity")
-                .fetch("bills.customer")
+        List<Bill> bill = Bill
+                .findDate
                 .where()
-                .between("id", start, end)
+                .between("billed_date", start, end)
                 .findList();
 
-        return ok(Json.toJson(customer));
+        return ok(Json.toJson(bill));
     }
 
-    public Result bills(Long id) {
+    public Result payments(Long id) {
 
-        Customer bills = Customer
-                .find
-                .fetch("bills")
-                .fetch("identity")
+        Customer customer = Customer.find.byId(id);
+        Identity identity = Identity.find.byId(id);
+        List<Bill> bills = Bill.find
                 .where()
-                .eq("id", id)
-                .findUnique();
+                .eq("customer_id", id)
+                .eq("paid", true)
+                .findList();
 
-        return ok(Json.toJson(bills));
+        return ok(concat(customer,identity,bills));
     }
 
+    public Result debts(Long id) {
+
+        Customer customer = Customer.find.byId(id);
+        Identity identity = Identity.find.byId(id);
+        List<Bill> bills = Bill.find
+                .where()
+                .eq("customer_id", id)
+                .eq("paid", false)
+                .findList();
+
+        return ok(concat(customer,identity,bills));
+    }
 }

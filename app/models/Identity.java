@@ -17,31 +17,31 @@ public class Identity extends Model {
     public int id;
 
     @Column(name = "citizen_no")
-    public Long citizenNo;
+    public Long citizen_no;
 
     @Column(name = "full_name")
-    public String fullName;
+    public String full_name;
 
     @Column (name = "birthdate")
     @JsonSerialize(using = JsonDateSerializer.class)
     public java.sql.Date birthdate;
 
     @Column(name = "place_of_birth")
-    public Integer placeOfBirth;
+    public Integer place_of_birth;
 
     @Column(name = "father_name")
-    public String fatherName;
+    public String father_name;
 
     @Column(name = "mother_name")
-    public String motherName;
+    public String mother_name;
 
     @Column(name = "created_at")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
-    public Date createdAt;
+    public Date created_at;
 
     @Column(name = "updated_at")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
-    public Date updatedAt;
+    public Date updated_at;
 
 
     public static final Model.Finder<Long, Identity> find = new Model.Finder<>(

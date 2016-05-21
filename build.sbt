@@ -9,9 +9,11 @@ scalaVersion := "2.11.7"
 libraryDependencies ++= Seq(
   javaJdbc,
   cache,
-  javaWs
+  javaWs,
+  "com.google.code.gson" % "gson" % "2.2"
 )
 
 
 libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.36"
 libraryDependencies += evolutions
+libraryDependencies += filters

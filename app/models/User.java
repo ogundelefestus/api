@@ -29,15 +29,15 @@ public class User extends Model {
 
     @Column (name = "full_name")
     @Constraints.Required
-    public String fullName;
+    public String full_name;
 
     @Column(name = "created_at")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
-    public Date createdAt;
+    public Date created_at;
 
     @Column(name = "updated_at")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
-    public Date updatedAt;
+    public Date updated_at;
 
 
     public void setPassword(String password) {

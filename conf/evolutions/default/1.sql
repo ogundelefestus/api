@@ -24,7 +24,6 @@ create table customers (
   closing_date                  date,
   created_at                    datetime(6),
   updated_at                    datetime(6),
-  constraint uq_customers_identity_id unique (identity_id),
   constraint pk_customers primary key (id)
 );
 
@@ -52,12 +51,8 @@ create table users (
   constraint pk_users primary key (id)
 );
 
-alter table customers add constraint fk_customers_identity_id foreign key (identity_id) references identities (id) on delete restrict on update restrict;
-
 
 # --- !Downs
-
-alter table customers drop foreign key fk_customers_identity_id;
 
 drop table if exists bills;
 

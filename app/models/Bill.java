@@ -18,11 +18,11 @@ public class Bill extends Model {
     public int id;
 
     @Column (name = "customer_id")
-    public int customerId;
+    public int customer_id;
 
     @Column (name = "billed_date")
     @JsonSerialize(using = JsonDateSerializer.class)
-    public java.sql.Date billedDate;
+    public java.sql.Date billed_date;
 
     @Column(name = "cost")
     public Double cost;
@@ -35,18 +35,21 @@ public class Bill extends Model {
 
     @Column (name = "payment_date")
     @JsonSerialize(using = JsonDateSerializer.class)
-    public java.sql.Date paymentDate;
+    public java.sql.Date payment_date;
 
     @Column(name = "created_at")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
-    public Date createdAt;
+    public Date created_at;
 
     @Column(name = "updated_at")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
-    public Date updatedAt;
+    public Date updated_at;
 
 
     public static final Model.Finder<Long, Bill> find = new Model.Finder<>(
             Long.class, Bill.class);
+
+    public static final Model.Finder<java.sql.Date, Bill> findDate = new Model.Finder<>(
+            java.sql.Date.class, Bill.class);
 
 }

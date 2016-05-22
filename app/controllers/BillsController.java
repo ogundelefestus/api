@@ -26,7 +26,7 @@ public class BillsController extends BaseController {
         bill.paid = true;
         bill.payment_date = new java.sql.Date (new java.util.Date().getTime());
         bill.save();
-        return ok(buildJsonResponse("update", "Users updated successfully"));
+        return ok(buildJsonResponse("success", "Payment made successfully"));
     }
 
     public Result all() {
@@ -43,5 +43,3 @@ public class BillsController extends BaseController {
         return ok(Json.toJson(bill));
     }
 }
-
-

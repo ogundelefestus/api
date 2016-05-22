@@ -49,7 +49,4 @@ public class Bill extends Model {
     public static final Model.Finder<Long, Bill> find = new Model.Finder<>(
             Long.class, Bill.class);
 
-    public static final Model.Finder<java.sql.Date, Bill> findDate = new Model.Finder<>(
-            java.sql.Date.class, Bill.class);
-
 }

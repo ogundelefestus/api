@@ -2,6 +2,7 @@ package controllers;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.User;
+import play.data.DynamicForm;
 import play.data.Form;
 import play.data.validation.Constraints;
 import play.libs.Json;
@@ -25,6 +26,21 @@ public class AuthController extends BaseController {
 
         return ok(buildJsonResponse("success", "Users created successfully"));
 
+    }
+
+    public Result update(long id) {
+
+        DynamicForm form = Form.form().bindFromRequest();
+        User user = User.find.byId(id);
+        user.setEmail(form.get("email"));
+        user.full_name = form.get("full_name");
+        if (form.get("password") != null){
+            user.setPassword(form.get("password"));
+        }
+        user.updated_at = new java.sql.Timestamp ( new java.util.Date().getTime());
+        user.save();
+
+        return ok(buildJsonResponse("success", "Users updated successfully"));
     }
 
     public Result login() {

@@ -44,6 +44,10 @@ public class User extends Model {
         this.shaPassword = getSha512(password);
     }
 
+    public byte[] getPassword () {
+        return shaPassword;
+    }
+
     public void setEmail(String email) {
         this.email = email.toLowerCase();
     }

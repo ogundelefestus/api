@@ -45,7 +45,6 @@ public class Bill extends Model {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     public Date updated_at;
 
-
     public static final Model.Finder<Long, Bill> find = new Model.Finder<>(
             Long.class, Bill.class);
 

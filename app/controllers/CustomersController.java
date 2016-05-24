@@ -1,6 +1,8 @@
 package controllers;
 
 import models.*;
+import play.libs.Json;
+import play.mvc.BodyParser;
 import play.mvc.Result;
 
 import java.text.DateFormat;
@@ -26,7 +28,6 @@ public class CustomersController extends BaseController {
         }*/
         Customer customer = Customer.find.byId(id);
         Identity identity = Identity.find.byId(id);
-
         return ok(concat(customer, identity));
     }
 

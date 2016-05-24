@@ -60,6 +60,8 @@ public class AuthController extends BaseController {
             ObjectNode msg = Json.newObject();
             msg.put("message", "Logged in successfully");
             msg.put("user", loggingInUser.email);
+            msg.put("id", user.id);
+            msg.put("full_name", user.full_name);
             wrapper.put("success", msg);
             return ok(wrapper);
         }

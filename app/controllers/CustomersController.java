@@ -1,9 +1,8 @@
 package controllers;
 
 import models.*;
-import play.libs.Json;
-import play.mvc.BodyParser;
 import play.mvc.Result;
+import redis.clients.jedis.Jedis;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -13,25 +12,34 @@ import java.util.List;
 
 import static services.JsonConcat.concat;
 
-
 public class CustomersController extends BaseController {
 
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     Calendar c = Calendar.getInstance();
-
+    Jedis jedis;
     public Result show(long id) {
 
-        /*String user = "user:" + id;
-        String result = jedisPool.getResource().get(user);
+        String uri = request().uri();
+        jedis = jedisPool.getResource();
+        String result = jedis.get(uri);
+        jedisPool.returnResource(jedis);
         if (result != null) {
             return ok(result);
-        }*/
+        }
         Customer customer = Customer.find.byId(id);
         Identity identity = Identity.find.byId(id);
         return ok(concat(customer, identity));
     }
 
     public Result debts(Long cid, int i) {
+
+        String uri = request().uri();
+        jedis = jedisPool.getResource();
+        String result = jedis.get(uri);
+        jedisPool.returnResource(jedis);
+        if (result != null) {
+            return ok(result);
+        }
 
         if (i == 0) {
             Customer customer = Customer.find.byId(cid);
@@ -88,6 +96,14 @@ public class CustomersController extends BaseController {
 
     public Result payments(Long cid, int i) {
 
+        String uri = request().uri();
+        jedis = jedisPool.getResource();
+        String result = jedis.get(uri);
+        jedisPool.returnResource(jedis);
+        if (result != null) {
+            return ok(result);
+        }
+
         if (i == 0) {
             Customer customer = Customer.find.byId(cid);
             Identity identity = Identity.find.byId(cid);
@@ -140,31 +156,4 @@ public class CustomersController extends BaseController {
             return ok(concat(customer, identity, bills));
         }
     }
-
-
-    /*public Result payments(Long id) {
-
-        Customer customer = Customer.find.byId(id);
-        Identity identity = Identity.find.byId(id);
-        List<Bill> bills = Bill.find
-                .where()
-                .eq("customer_id", id)
-                .eq("paid", true)
-                .findList();
-
-        return ok(concat(customer, identity, bills));
-    }
-
-    public Result debts(Long id) {
-
-        Customer customer = Customer.find.byId(id);
-        Identity identity = Identity.find.byId(id);
-        List<Bill> bills = Bill.find
-                .where()
-                .eq("customer_id", id)
-                .eq("paid", false)
-                .findList();
-
-        return ok(concat(customer,identity,bills));
-    }*/
 }

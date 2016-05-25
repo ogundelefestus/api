@@ -25,7 +25,6 @@ public class AuthController extends BaseController {
         session("email", newUser.email);
 
         return ok(buildJsonResponse("success", "Users created successfully"));
-
     }
 
     public Result update(long id) {

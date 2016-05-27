@@ -31,6 +31,9 @@ public class User extends Model {
     @Constraints.Required
     public String full_name;
 
+    @Column (name = "admin")
+    public boolean admin;
+
     @Column(name = "created_at")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     public Date created_at;

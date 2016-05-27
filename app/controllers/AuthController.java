@@ -61,6 +61,7 @@ public class AuthController extends BaseController {
             msg.put("user", loggingInUser.email);
             msg.put("id", user.id);
             msg.put("full_name", user.full_name);
+            msg.put("admin", user.admin);
             wrapper.put("success", msg);
             return ok(wrapper);
         }

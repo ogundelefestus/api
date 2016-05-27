@@ -27,6 +27,9 @@ public class CustomersController extends BaseController {
             return ok(result);
         }
         Customer customer = Customer.find.byId(id);
+        if(customer == null) {
+            return notFound("Customer not found");
+        }
         Identity identity = Identity.find.byId(id);
         return ok(concat(customer, identity));
     }
@@ -41,9 +44,13 @@ public class CustomersController extends BaseController {
             return ok(result);
         }
 
+        Customer customer = Customer.find.byId(cid);
+        if(customer == null) {
+            return notFound("Customer not found");
+        }
+        Identity identity = Identity.find.byId(cid);
+
         if (i == 0) {
-            Customer customer = Customer.find.byId(cid);
-            Identity identity = Identity.find.byId(cid);
             List<Bill> bills = Bill.find
                     .where()
                     .eq("customer_id", cid)
@@ -52,8 +59,6 @@ public class CustomersController extends BaseController {
 
             return ok(concat(customer, identity, bills));
         } else {
-
-
             List<Bill> getLastBill = Bill
                     .find
                     .where()
@@ -74,14 +79,13 @@ public class CustomersController extends BaseController {
             } else if (i == 12) {
                 c.add(Calendar.MONTH, -11);
             } else {
-                return ok(buildJsonResponse("fail", "Invalid month definition"));
+                return badRequest(buildJsonResponse("fail", "Invalid month definition"));
             }
             pastDate = c.getTime();
             String today = dateFormat.format(dateToday);
             String past = dateFormat.format(pastDate);
 
-            Customer customer = Customer.find.byId(cid);
-            Identity identity = Identity.find.byId(cid);
+
             List<Bill> bills = Bill
                     .find
                     .where()
@@ -104,9 +108,14 @@ public class CustomersController extends BaseController {
             return ok(result);
         }
 
+        Customer customer = Customer.find.byId(cid);
+        if(customer == null) {
+            return notFound("Customer not found");
+        }
+        Identity identity = Identity.find.byId(cid);
+
         if (i == 0) {
-            Customer customer = Customer.find.byId(cid);
-            Identity identity = Identity.find.byId(cid);
+
             List<Bill> bills = Bill.find
                     .where()
                     .eq("customer_id", cid)
@@ -137,14 +146,12 @@ public class CustomersController extends BaseController {
             } else if (i == 12) {
                 c.add(Calendar.MONTH, -11);
             } else {
-                return ok(buildJsonResponse("fail", "Invalid month definition"));
+                return badRequest(buildJsonResponse("fail", "Invalid month definition"));
             }
             pastDate = c.getTime();
             String today = dateFormat.format(dateToday);
             String past = dateFormat.format(pastDate);
 
-            Customer customer = Customer.find.byId(cid);
-            Identity identity = Identity.find.byId(cid);
             List<Bill> bills = Bill
                     .find
                     .where()

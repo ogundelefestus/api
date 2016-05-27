@@ -45,6 +45,7 @@ create table users (
   email                         varchar(255) not null,
   password                      varbinary(64) not null,
   full_name                     varchar(255),
+  admin                         tinyint(1) default 0,
   created_at                    datetime(6),
   updated_at                    datetime(6),
   constraint uq_users_email unique (email),

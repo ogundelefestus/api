@@ -16,13 +16,19 @@ public class CustomersController extends BaseController {
 
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     Calendar c = Calendar.getInstance();
-    Jedis jedis;
-    public Result show(long id) {
 
+    public Result show(long id) {
+        String result;
         String uri = request().uri();
-        jedis = jedisPool.getResource();
-        String result = jedis.get(uri);
-        jedisPool.returnResource(jedis);
+        Jedis jedis = jedisPool.getResource();
+        try {
+            result = jedis.get(uri);
+        } finally {
+            if (jedis != null) {
+                jedisPool.returnResource(jedis);
+            }
+        }
+
         if (result != null) {
             return ok(result);
         }
@@ -36,10 +42,16 @@ public class CustomersController extends BaseController {
 
     public Result debts(Long cid, int i) {
 
+        String result;
         String uri = request().uri();
-        jedis = jedisPool.getResource();
-        String result = jedis.get(uri);
-        jedisPool.returnResource(jedis);
+        Jedis jedis = jedisPool.getResource();
+        try {
+            result = jedis.get(uri);
+        } finally {
+            if (jedis != null) {
+                jedisPool.returnResource(jedis);
+            }
+        }
         if (result != null) {
             return ok(result);
         }
@@ -100,10 +112,16 @@ public class CustomersController extends BaseController {
 
     public Result payments(Long cid, int i) {
 
+       String result;
         String uri = request().uri();
-        jedis = jedisPool.getResource();
-        String result = jedis.get(uri);
-        jedisPool.returnResource(jedis);
+        Jedis jedis = jedisPool.getResource();
+        try {
+            result = jedis.get(uri);
+        } finally {
+            if (jedis != null) {
+                jedisPool.returnResource(jedis);
+            }
+        }
         if (result != null) {
             return ok(result);
         }

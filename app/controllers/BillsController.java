@@ -19,7 +19,6 @@ public class BillsController extends BaseController {
 
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     Calendar c = Calendar.getInstance();
-    Jedis jedis;
 
     public Result show(long id) {
 
@@ -45,7 +44,7 @@ public class BillsController extends BaseController {
         int[] list = {0, 1, 3, 6, 12};
         Customer customer = Customer.find.byId((long) bill.customer_id);
         Identity identity = Identity.find.byId((long) bill.customer_id);
-        jedis = jedisPool.getResource();
+        Jedis jedis = jedisPool.getResource();
         for (int x = 0; x < 5; x++) {
 
             String debt = "/api/customers/" + bill.customer_id + "/debts/" + list[x];
